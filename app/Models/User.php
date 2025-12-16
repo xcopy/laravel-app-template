@@ -24,6 +24,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\OneTimePasswords\Models\Concerns\HasOneTimePasswords;
 use Spatie\Permission\Traits\HasRoles;
 
 #[UsePolicy(UserPolicy::class)]
@@ -38,6 +39,7 @@ class User extends Authenticatable implements
     use AuditableTrait;
     use BlameableTrait;
     use HasFactory;
+    use HasOneTimePasswords;
     use HasRoles;
     use InteractsWithMedia;
     use Notifiable;
