@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Permissions;
 
-enum MediaPermissionsEnum: string implements PermissionEnum
+enum Media: string implements PermissionEnum
 {
     use PermissionEnumTrait;
 

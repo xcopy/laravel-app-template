@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum RolesEnum: string
+enum Roles: string
 {
     case ADMIN = 'admin';
     case MEDIA_MANAGER = 'media manager';

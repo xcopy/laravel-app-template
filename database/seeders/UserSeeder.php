@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Enums\MediaPermissionsEnum;
-use App\Enums\PermissionPermissionsEnum;
-use App\Enums\RolePermissionsEnum;
-use App\Enums\RolesEnum;
-use App\Enums\UserPermissionsEnum;
+use App\Enums\Permissions\Media;
+use App\Enums\Permissions\Permission;
+use App\Enums\Permissions\Role as RoleEnum;
+use App\Enums\Permissions\User as UserEnum;
+use App\Enums\Roles;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -27,11 +27,11 @@ class UserSeeder extends Seeder
                     'email_verified_at' => now(),
                 ],
                 [
-                    RolesEnum::ADMIN->value,
-                    RolesEnum::MEDIA_MANAGER->value,
-                    RolesEnum::PERMISSION_MANAGER->value,
-                    RolesEnum::ROLE_MANAGER->value,
-                    RolesEnum::USER_MANAGER->value,
+                    Roles::ADMIN->value,
+                    Roles::MEDIA_MANAGER->value,
+                    Roles::PERMISSION_MANAGER->value,
+                    Roles::ROLE_MANAGER->value,
+                    Roles::USER_MANAGER->value,
                 ],
                 [
                     //
@@ -46,17 +46,17 @@ class UserSeeder extends Seeder
                     'email_verified_at' => now(),
                 ],
                 [
-                    RolesEnum::ADMIN->value
+                    Roles::ADMIN->value
                 ],
                 [
-                    MediaPermissionsEnum::VIEW_ANY->value,
-                    MediaPermissionsEnum::VIEW->value,
-                    PermissionPermissionsEnum::VIEW_ANY->value,
-                    PermissionPermissionsEnum::VIEW->value,
-                    RolePermissionsEnum::VIEW_ANY->value,
-                    RolePermissionsEnum::VIEW->value,
-                    UserPermissionsEnum::VIEW_ANY->value,
-                    UserPermissionsEnum::VIEW->value,
+                    Media::VIEW_ANY->value,
+                    Media::VIEW->value,
+                    Permission::VIEW_ANY->value,
+                    Permission::VIEW->value,
+                    RoleEnum::VIEW_ANY->value,
+                    RoleEnum::VIEW->value,
+                    UserEnum::VIEW_ANY->value,
+                    UserEnum::VIEW->value,
                 ]
             ]
         ];

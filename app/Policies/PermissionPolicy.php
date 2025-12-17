@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionPermissionsEnum;
+use App\Enums\Permissions\Permission;
 
 class PermissionPolicy extends Policy
 {
-    protected static string $permissionEnum = PermissionPermissionsEnum::class;
+    protected static string $permissionEnum = Permission::class;
 }

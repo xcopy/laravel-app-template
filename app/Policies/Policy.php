@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PermissionEnum;
+use App\Enums\Permissions\PermissionEnum;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 

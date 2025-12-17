@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Permissions;
 
-enum RolePermissionsEnum: string implements PermissionEnum
+enum Role: string implements PermissionEnum
 {
     use PermissionEnumTrait;
 

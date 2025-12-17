@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Enums\MediaPermissionsEnum;
-use App\Enums\PermissionPermissionsEnum;
-use App\Enums\RolePermissionsEnum;
-use App\Enums\UserPermissionsEnum;
-use App\Enums\RolesEnum;
+use App\Enums\Permissions\Media;
+use App\Enums\Permissions\Permission as PermissionEnum;
+use App\Enums\Permissions\Role as RoleEnum;
+use App\Enums\Permissions\User;
+use App\Enums\Roles;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
@@ -19,13 +19,13 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $items = [
-            RolesEnum::ADMIN->value => [
+            Roles::ADMIN->value => [
                 // ...
             ],
-            RolesEnum::MEDIA_MANAGER->value => MediaPermissionsEnum::getPermissionNames(),
-            RolesEnum::PERMISSION_MANAGER->value => PermissionPermissionsEnum::getPermissionNames(),
-            RolesEnum::ROLE_MANAGER->value => RolePermissionsEnum::getPermissionNames(),
-            RolesEnum::USER_MANAGER->value => UserPermissionsEnum::getPermissionNames(),
+            Roles::MEDIA_MANAGER->value => Media::values(),
+            Roles::PERMISSION_MANAGER->value => PermissionEnum::values(),
+            Roles::ROLE_MANAGER->value => RoleEnum::values(),
+            Roles::USER_MANAGER->value => User::values(),
         ];
 
         foreach ($items as $role => $permissions) {

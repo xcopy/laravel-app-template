@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Contracts\Blameable;
 use App\Contracts\SoftDeletable;
-use App\Enums\RolesEnum;
+use App\Enums\Roles;
 use App\Notifications\VerifyEmail as VerifyEmailNotification;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 use App\Policies\UserPolicy;
@@ -127,7 +127,7 @@ class User extends Authenticatable implements
     public function canAccessPanel(Panel $panel): bool
     {
         return match ($panel->getId()) {
-            'admin' => $this->hasRole(RolesEnum::ADMIN),
+            'admin' => $this->hasRole(Roles::ADMIN),
             'app' => true, // todo
             default => false,
         };

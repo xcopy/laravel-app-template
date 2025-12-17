@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
-use App\Enums\MediaPermissionsEnum;
+use App\Enums\Permissions\Media;
 
 class MediaPolicy extends Policy
 {
-    protected static string $permissionEnum = MediaPermissionsEnum::class;
+    protected static string $permissionEnum = Media::class;
 }
