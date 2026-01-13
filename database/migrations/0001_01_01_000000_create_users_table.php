@@ -30,6 +30,10 @@ return new class extends Migration
             foreach (['created_at', 'updated_at', 'deleted_at'] as $column) {
                 $table->index($column);
             }
+
+            foreach (['username', 'email'] as $column) {
+                $table->rawIndex("lower($column)", "users_{$column}_lower_index");
+            }
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
