@@ -92,7 +92,7 @@ class User extends Authenticatable implements
     {
         return Attribute::make(
             // get: fn (string $value) => Str::title($value),
-            set: fn (string $value) => Str::title($value),
+            set: fn (string $value) => Str::title(Str::trim($value)),
         );
     }
 
@@ -100,7 +100,7 @@ class User extends Authenticatable implements
     {
         return Attribute::make(
             // get: fn (string $value) => Str::lower($value),
-            set: fn (string $value) => Str::lower($value),
+            set: fn (string $value) => Str::lower(Str::trim($value)),
         );
     }
 
