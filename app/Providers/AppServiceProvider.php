@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         Blueprint::macro('blameable', function () {
             foreach (['created_by', 'updated_by', 'deleted_by'] as $column) {
                 $this->integer($column, unsigned: true)->nullable();
+                $this->index($column);
                 $this->foreign($column, $column)
                     ->references('id')
                     ->on((new User())->getTable());

@@ -24,9 +24,13 @@ return new class extends Migration
             $table->json('generated_conversions');
             $table->json('responsive_images');
             $table->unsignedInteger('order_column')->nullable()->index();
-            $table->nullableTimestamps();
+            $table->timestamps();
             $table->softDeletes();
             $table->blameable();
+
+            foreach (['created_at', 'updated_at', 'deleted_at'] as $column) {
+                $table->index($column);
+            }
         });
     }
 };

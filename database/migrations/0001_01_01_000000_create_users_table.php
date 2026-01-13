@@ -26,6 +26,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->blameable();
+
+            foreach (['created_at', 'updated_at', 'deleted_at'] as $column) {
+                $table->index($column);
+            }
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
