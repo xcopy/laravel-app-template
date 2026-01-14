@@ -20,15 +20,25 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update(User $user, array $input): void
     {
-        Validator::make($input, [
+        $hasUsernameAttribute = User::hasUsernameAttribute();
+
+        $rules = [
             'name' => $this->nameRules(),
-            'username' => $this->usernameRules($user),
             'email' => $this->emailRules($user),
-        ])->validateWithBag('updateProfileInformation');
+        ];
+
+        if ($hasUsernameAttribute) {
+            $rules['username'] = $this->usernameRules($user);
+        }
+
+        Validator::make($input, $rules)->validateWithBag('updateProfileInformation');
+
+        if ($hasUsernameAttribute) {
+            $attributes['username'] = $input['username'];
+        }
 
         $attributes = [
             'name' => $input['name'],
-            'username' => $input['username'],
             'email' => $input['email'],
         ];
 

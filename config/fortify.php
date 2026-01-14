@@ -45,9 +45,9 @@ return [
     |
     */
 
-    'username' => 'username',
+    'username' => env('FORTIFY_USERNAME', 'email'),
 
-    'email' => 'email',
+    'email' => env('FORTIFY_EMAIL', 'email'),
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +73,7 @@ return [
     |
     */
 
-    'home' => '/dashboard',
+    'home' => env('FORTIFY_HOME', '/dashboard'),
 
     /*
     |--------------------------------------------------------------------------

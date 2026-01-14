@@ -15,9 +15,7 @@ new class extends Component {
     use UsernameValidationRules;
 
     public string $name = '';
-
     public string $username = '';
-
     public string $email = '';
 
     /**
@@ -28,8 +26,11 @@ new class extends Component {
         $user = Auth::user();
 
         $this->name = $user->name;
-        $this->username = $user->username;
         $this->email = $user->email;
+
+        if (User::hasUsernameAttribute()) {
+            $this->username = $user->username;
+        }
     }
 
     /**
@@ -39,13 +40,16 @@ new class extends Component {
     {
         $user = Auth::user();
 
-        $validated = $this->validate([
+        $rules = [
             'name' => $this->nameRules(),
-            'username' => $this->usernameRules($user),
             'email' => $this->emailRules($user),
-        ]);
+        ];
 
-        $user->fill($validated);
+        if (User::hasUsernameAttribute()) {
+            $rules['username'] = $this->usernameRules($user);
+        }
+
+        $user->fill($this->validate($rules));
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -81,7 +85,10 @@ new class extends Component {
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name, username and email address')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autocomplete="name" autofocus/>
-            <flux:input wire:model="username" :label="__('Username')" type="text" required autocomplete="username"/>
+
+            @if (User::hasUsernameAttribute())
+                <flux:input wire:model="username" :label="__('Username')" type="text" required autocomplete="username"/>
+            @endif
 
             <div>
                 <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email"/>
@@ -92,7 +99,7 @@ new class extends Component {
                             {{ __('Your email address is unverified.') }}
 
                             <flux:link class="text-sm cursor-pointer"
-                                       wire:click.prevent="resendVerificationNotification">
+                                wire:click.prevent="resendVerificationNotification">
                                 {{ __('Click here to re-send the verification email.') }}
                             </flux:link>
                         </flux:text>

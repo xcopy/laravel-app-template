@@ -29,7 +29,7 @@ class UserInfolist
                                         fn (User $record): string => url('https://placehold.co/40?text=' . $record->initials())
                                     ),
                                 TextEntry::make('name'),
-                                TextEntry::make('username'),
+                                User::hasUsernameAttribute() ? TextEntry::make('username') : null,
                             ]),
                         Grid::make(3)
                             ->schema([

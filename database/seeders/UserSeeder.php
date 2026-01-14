@@ -9,6 +9,7 @@ use App\Enums\Permissions\User as UserEnum;
 use App\Enums\Roles;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -21,7 +22,6 @@ class UserSeeder extends Seeder
             [
                 [
                     'name' => 'Kairat Jenishev',
-                    'username' => 'kairat',
                     'email' => 'kairat.jenishev@gmail.com',
                     'password' => 'xx',
                     'email_verified_at' => now(),
@@ -40,7 +40,6 @@ class UserSeeder extends Seeder
             [
                 [
                     'name' => 'Admin',
-                    'username' => 'admin',
                     'email' => 'admin@example.com',
                     'password' => 'xx',
                     'email_verified_at' => now(),
@@ -61,10 +60,22 @@ class UserSeeder extends Seeder
             ]
         ];
 
+        $hasUsernameAttribute = User::hasUsernameAttribute();
+
         foreach ($items as [$attributes, $roles, $permissions]) {
+            if ($hasUsernameAttribute) {
+                $attributes['username'] = Str::of($attributes['email'])
+                    ->explode('@')
+                    ->first();
+            }
+
             $user = User::create($attributes);
+
             $user->assignRole($roles);
-            $permissions and $user->givePermissionTo($permissions);
+
+            if (!empty($permissions)) {
+                $user->givePermissionTo($permissions);
+            }
         }
 
         User::factory()

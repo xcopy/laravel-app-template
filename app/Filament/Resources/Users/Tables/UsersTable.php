@@ -19,7 +19,7 @@ class UsersTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->columns([
+            ->columns(array_filter([
                 IdColumn::make(),
                 SpatieMediaLibraryImageColumn::make('avatar')
                     ->label(__('Avatar'))
@@ -32,16 +32,18 @@ class UsersTable
                     ),
                 NameColumn::make()
                     ->grow(),
-                TextColumn::make('username')
-                    ->searchable()
-                    ->sortable(),
+                User::hasUsernameAttribute()
+                    ? TextColumn::make('username')
+                        ->searchable()
+                        ->sortable()
+                    : null,
                 TextColumn::make('email')
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('active')
                     ->boolean()
                     ->sortable(),
-            ])
+            ]))
             ->recordActions([
                 EditAction::make()->iconButton(),
                 DeleteAction::make()->iconButton(),

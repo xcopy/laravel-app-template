@@ -56,7 +56,6 @@ class User extends Authenticatable implements
      */
     protected $fillable = [
         'name',
-        'username',
         'email',
         'password',
         'active',
@@ -75,6 +74,18 @@ class User extends Authenticatable implements
     ];
 
     /**
+     * {@inheritDoc}
+     */
+    public function getFillable(): array
+    {
+        if (static::hasUsernameAttribute()) {
+            $this->fillable[] = 'username';
+        }
+
+        return parent::getFillable();
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -86,6 +97,11 @@ class User extends Authenticatable implements
             'password' => 'hashed',
             'active' => 'boolean',
         ];
+    }
+
+    public static function hasUsernameAttribute(): bool
+    {
+        return config('fortify.username') === 'username';
     }
 
     protected function name(): Attribute

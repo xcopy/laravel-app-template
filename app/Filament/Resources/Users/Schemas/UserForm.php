@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
+use App\Models\User;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -18,15 +19,16 @@ class UserForm
         return $schema
             ->components([
                 Section::make()
-                    ->schema([
+                    ->schema(array_filter([
                         TextInput::make('name')
                             ->required(),
-                        TextInput::make('username')
-                            ->required(),
+                        User::hasUsernameAttribute()
+                            ? TextInput::make('username')->required()
+                            : null,
                         TextInput::make('email')
                             ->email()
                             ->required(),
-                    ]),
+                    ])),
                 Section::make()
                     ->schema([
                         TextInput::make('password')
